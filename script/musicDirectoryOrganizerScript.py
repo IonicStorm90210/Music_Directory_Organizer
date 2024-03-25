@@ -25,6 +25,8 @@ def removeBadCharactersMP4(value):
        value = value.replace(char, '')
     return value
 
+'''
+Functions for testing
 def mp3Function(root):
     print("These are MP3s: " + mp3Songs)
     info = mutagen.File(root + '\\' + mp3Songs)
@@ -49,6 +51,7 @@ def m4aFunction(root):
     print("Album: " + str(albumName))
     print("Title: " + str(songTitle))
     print("-----")
+'''
 
 def newNameM4a(oldRoot):
     print("dogs")
