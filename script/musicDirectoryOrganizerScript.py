@@ -72,9 +72,9 @@ def newNameM4a(oldRoot):
 
 
     for root, dirs, files in os.walk(new_directory):
-        artistPath = new_directory + '\\' + artistName
-        albumPath = artistPath + '\\' + albumName
-        songPath = albumPath + '\\' + songTitle
+        artistPath = os.path.join(new_directory, artistName)
+        albumPath = os.path.join(artistPath, albumName)
+        songPath = os.path.join(albumPath, songTitle)
 
         if not os.path.isdir(artistPath):
             os.mkdir(artistPath)            
@@ -126,9 +126,9 @@ def newNameMP3(oldRoot):
     print("-----")
 
     for root, dirs, files in os.walk(new_directory):
-        artistPath = new_directory + '\\' + artistName
-        albumPath = artistPath + '\\' + albumName
-        songPath = albumPath + '\\' + songTitle
+        artistPath = os.path.join(new_directory, artistName)
+        albumPath = os.path.join(artistPath, albumName)
+        songPath = os.path.join(albumPath, songTitle)
 
         if not os.path.isdir(artistPath):
             print("no artist folder for ~~" + artistName)
@@ -178,7 +178,7 @@ for root, dirs, files, in os.walk(old_directory):
             if mp3Extension in filename:
                 mp3Songs = filename
                 #mp3Function(os.path.abspath(root)) 
-                #newNameMP3(os.path.abspath(root)) 
+                newNameMP3(os.path.abspath(root)) 
 
 
             if m4aExtension in filename:
