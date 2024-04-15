@@ -2,6 +2,7 @@ import os
 from pprint import pprint
 import mutagen
 import shutil
+import random
 from mutagen.id3 import ID3
 from mutagen.mp3 import MP3
 from mutagen.mp4 import MP4
@@ -14,13 +15,13 @@ mp3Songs = []
 m4aSongs = []
 
 def removeBadCharactersMP3(value):
-    deleteChars = '\\/:*?"<>|'
+    deleteChars = '\\/:*?"<>|.'
     for char in deleteChars:
        value = value.replace(char, '')
     return value
 
 def removeBadCharactersMP4(value):
-    deleteChars = '\\/:*?\'"<>|[]'
+    deleteChars = '\\/:*?\'"<>|.[]'
     for char in deleteChars:
        value = value.replace(char, '')
     return value
@@ -54,8 +55,8 @@ def m4aFunction(root):
 '''
 
 def newNameM4a(oldRoot):
-    print("dogs")
 
+    randomNumber = str(random.radint(0, 100))
     info = mutagen.File(oldRoot + '\\' + m4aSongs)
     oldMP4 = oldRoot + '\\' + m4aSongs
     artistName = str(info.get('\xa9ART'))
@@ -65,6 +66,17 @@ def newNameM4a(oldRoot):
     songTitle = str(info.get('\xa9nam'))
     songTitle = removeBadCharactersMP4(songTitle)
     #print(pprint(info))
+
+    if artistName == "None":
+        artistName = artistName + " " + randomNumber
+    
+    if albumName == "None":
+        albumName = albumName + " " + randomNumber
+
+    if songTitle == "None":
+        songTitle = songTitle + " " + randomNumber
+
+
     songTitle = songTitle + '.m4a'
 
     print("Artist Title: " + artistName)
@@ -113,6 +125,8 @@ def newNameM4a(oldRoot):
             print("made directory for " + artistName)
 
 def newNameMP3(oldRoot):
+
+    randomNumber = str(random.radint(0, 100))
     info = mutagen.File(oldRoot + '\\' + mp3Songs)
     oldMP3 = oldRoot + '\\' + mp3Songs
     artistName = str(info.get('TPE1'))
@@ -121,6 +135,16 @@ def newNameMP3(oldRoot):
     albumName = removeBadCharactersMP3(albumName)
     songTitle = str(info.get('TIT2'))
     songTitle = removeBadCharactersMP3(songTitle)
+
+    if artistName == "None":
+        artistName = artistName + " " + randomNumber
+    
+    if albumName == "None":
+        albumName = albumName + " " + randomNumber
+
+    if songTitle == "None":
+        songTitle = songTitle + " " + randomNumber
+
     songTitle = songTitle + '.mp3'
     
     print("Album Title: " + albumName)
