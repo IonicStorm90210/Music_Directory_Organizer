@@ -9,7 +9,6 @@ from mutagen.mp4 import MP4
 old_directory = # Path of old directory 
 new_directory = # Path to new directory
 
-
 mp3Songs = []
 m4aSongs = []
 
