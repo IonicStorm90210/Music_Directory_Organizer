@@ -10,7 +10,6 @@ old_directory = # Path of old directory
 new_directory = # Path to new directory
 
 
-print("Hello World!")
 mp3Songs = []
 m4aSongs = []
 
@@ -18,12 +17,14 @@ def removeBadCharactersMP3(value):
     deleteChars = '\\/:*?"<>|.'
     for char in deleteChars:
        value = value.replace(char, '')
+    value = value.rstrip()
     return value
 
 def removeBadCharactersMP4(value):
     deleteChars = '\\/:*?\'"<>|.[]'
     for char in deleteChars:
        value = value.replace(char, '')
+    value = value.rstrip()
     return value
 
 '''
@@ -64,6 +65,9 @@ def newNameM4a(oldRoot):
     albumName = str(info.get('\xa9alb'))
     albumName = removeBadCharactersMP4(albumName)
     songTitle = str(info.get('\xa9nam'))
+
+    if len(songTitle) >= 200:
+        songTitle = songTitle[:-100]
     songTitle = removeBadCharactersMP4(songTitle)
     #print(pprint(info))
 
@@ -134,6 +138,9 @@ def newNameMP3(oldRoot):
     albumName = str(info.get('TALB'))
     albumName = removeBadCharactersMP3(albumName)
     songTitle = str(info.get('TIT2'))
+
+    if len(songTitle) >= 200:
+        songTitle = songTitle[:-100]
     songTitle = removeBadCharactersMP3(songTitle)
 
     if artistName == "None":
@@ -203,13 +210,13 @@ for root, dirs, files, in os.walk(old_directory):
             mp3Extension = 'mp3'
             m4aExtension = 'm4a'
             if mp3Extension in filename:
-                mp3Songs = filename
+                #mp3Songs = filename
                 #mp3Function(os.path.abspath(root)) 
                 newNameMP3(os.path.abspath(root)) 
 
 
             if m4aExtension in filename:
-                m4aSongs = filename
+                #m4aSongs = filename
                 #m4aFunction(os.path.abspath(root))
                 #print('These are M4As: '+ m4aSongs)
                 newNameM4a(os.path.abspath(root))
